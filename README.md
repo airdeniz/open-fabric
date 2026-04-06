@@ -3,6 +3,7 @@
 Open source equivalent of Microsoft Fabric, built for insurance data warehouse use cases.
 
 ## Architecture
+![Dashboard](screenshot.png)
 
 | Layer | Tool | Fabric Equivalent |
 |---|---|---|
