@@ -24,12 +24,14 @@ def generate_policy(policy_id):
     }
 
 def generate_policy_version(policy_id, version_id):
+    gross = round(random.uniform(500, 15000), 2)
+    net = round(random.uniform(400, gross), 2)
     return {
         "version_id": f"VER-{version_id:06d}",
         "policy_id": f"POL-{policy_id:06d}",
         "version_number": random.randint(1, 5),
-        "gross_premium": round(random.uniform(500, 15000), 2),
-        "net_premium": round(random.uniform(400, 12000), 2),
+        "gross_premium": gross,
+        "net_premium": net,
         "endorsement_type": random.choice(["NEW", "RENEWAL", "CANCELLATION", "AMENDMENT"]),
         "created_at": datetime.now().isoformat()
     }
@@ -66,7 +68,6 @@ if __name__ == "__main__":
 
     policies, versions, insureds = generate_all(1000)
 
-    # JSON kaydet
     with open("data_generator/output/policies.json", "w", encoding="utf-8") as f:
         json.dump(policies, f, ensure_ascii=False, indent=2)
 
@@ -76,7 +77,6 @@ if __name__ == "__main__":
     with open("data_generator/output/insureds.json", "w", encoding="utf-8") as f:
         json.dump(insureds, f, ensure_ascii=False, indent=2)
 
-    # Parquet kaydet
     pd.DataFrame(policies).to_parquet("data_generator/output/policies.parquet", index=False)
     pd.DataFrame(versions).to_parquet("data_generator/output/policy_versions.parquet", index=False)
     pd.DataFrame(insureds).to_parquet("data_generator/output/insureds.parquet", index=False)
