@@ -60,10 +60,13 @@ def generate_all(n=1000):
 
 if __name__ == "__main__":
     import os
+    import pandas as pd
+
     os.makedirs("data_generator/output", exist_ok=True)
 
     policies, versions, insureds = generate_all(1000)
 
+    # JSON kaydet
     with open("data_generator/output/policies.json", "w", encoding="utf-8") as f:
         json.dump(policies, f, ensure_ascii=False, indent=2)
 
@@ -73,6 +76,12 @@ if __name__ == "__main__":
     with open("data_generator/output/insureds.json", "w", encoding="utf-8") as f:
         json.dump(insureds, f, ensure_ascii=False, indent=2)
 
+    # Parquet kaydet
+    pd.DataFrame(policies).to_parquet("data_generator/output/policies.parquet", index=False)
+    pd.DataFrame(versions).to_parquet("data_generator/output/policy_versions.parquet", index=False)
+    pd.DataFrame(insureds).to_parquet("data_generator/output/insureds.parquet", index=False)
+
     print(f"✓ {len(policies)} poliçe üretildi")
     print(f"✓ {len(versions)} versiyon üretildi")
     print(f"✓ {len(insureds)} sigortalı üretildi")
+    print("✓ JSON ve Parquet dosyaları oluşturuldu")

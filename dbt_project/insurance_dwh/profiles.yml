@@ -1,0 +1,6 @@
+insurance_dwh:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "C:/Users/deniz/open-fabric/dbt_project/insurance_dwh/insurance.duckdb"

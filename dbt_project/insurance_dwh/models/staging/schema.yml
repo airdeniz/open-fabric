@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: stg_policies
+    description: "Ham poliçe verisi"
+    columns:
+      - name: policy_id
+        description: "Poliçe ID"
+        tests:
+          - unique
+          - not_null
+      - name: product_code
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["ACTIVE", "CANCELLED", "EXPIRED"]
+
+  - name: stg_policy_versions
+    description: "Poliçe versiyon verisi"
+    columns:
+      - name: version_id
+        tests:
+          - unique
+          - not_null
+      - name: policy_id
+        tests:
+          - not_null
+
+  - name: stg_insureds
+    description: "Sigortalı verisi"
+    columns:
+      - name: insured_id
+        tests:
+          - unique
+          - not_null
+      - name: policy_id
+        tests:
+          - not_null
