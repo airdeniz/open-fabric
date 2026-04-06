@@ -60,6 +60,18 @@ cd dbt_project/insurance_dwh
 dbt test
 ```
 
+## Architecture Decision Records
+
+All architectural decisions are documented in the [docs/adr](docs/adr) folder.
+
+| ADR | Decision |
+|---|---|
+| [ADR-001](docs/adr/ADR-001-storage-minio.md) | Why MinIO for object storage |
+| [ADR-002](docs/adr/ADR-002-transformation-dbt-duckdb.md) | Why dbt Core + DuckDB for transformations |
+| [ADR-003](docs/adr/ADR-003-orchestration-airflow.md) | Why Apache Airflow for orchestration |
+| [ADR-004](docs/adr/ADR-004-streaming-kafka.md) | Why Apache Kafka for streaming |
+| [ADR-005](docs/adr/ADR-005-visualization-superset.md) | Why Apache Superset for visualization |
+
 ## Quick Start
 ```bash
 # 1. Clone the repo
