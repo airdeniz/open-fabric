@@ -89,6 +89,16 @@ python ingestion/kafka_producer.py
 python ingestion/kafka_consumer.py
 ```
 
+## Examples
+
+The [examples](examples) folder contains ready-to-run scripts demonstrating key use cases:
+
+| Example | Description |
+|---|---|
+| [01_basic_pipeline.py](examples/01_basic_pipeline.py) | End-to-end batch pipeline — generate, ingest, transform, query |
+| [02_realtime_streaming.py](examples/02_realtime_streaming.py) | Kafka producer and consumer for near real-time streaming |
+| [03_dbt_transformation.py](examples/03_dbt_transformation.py) | dbt transformation deep dive — raw data to Gold layer |
+
 ## Services
 
 | Service | URL | Credentials |
