@@ -6,8 +6,8 @@ Open source equivalent of Microsoft Fabric, built for insurance data warehouse u
 
 | Layer | Tool | Fabric Equivalent |
 |---|---|---|
-| Storage | MinIO + Delta Lake | OneLake |
-| Ingestion | Python + Parquet | Data Factory |
+| Storage | MinIO + Parquet | OneLake |
+| Ingestion | Python + Apache Kafka | Data Factory |
 | Transformation | dbt Core + DuckDB | Fabric Notebooks |
 | Orchestration | Apache Airflow | Data Factory Pipelines |
 | BI / Dashboard | Apache Superset | Power BI |
@@ -15,8 +15,9 @@ Open source equivalent of Microsoft Fabric, built for insurance data warehouse u
 ## Stack
 
 - **Data Generator**: Faker (Python) — 1000 synthetic insurance records
+- **Apache Kafka**: Near real-time data streaming (new policy every 30 seconds)
 - **MinIO**: S3-compatible object storage (Bronze layer)
-- **dbt Core**: Staging and mart models with tests
+- **dbt Core**: Staging and mart models with 11 tests
 - **Apache Airflow**: End-to-end pipeline orchestration
 - **Apache Superset**: Interactive dashboards
 
@@ -35,24 +36,12 @@ Open source equivalent of Microsoft Fabric, built for insurance data warehouse u
 git clone https://github.com/airdeniz/open-fabric.git
 cd open-fabric
 
-# 2. Start all services
-docker-compose up -d
+# 2. Start all services with one command
+.\start.bat
 
-# 3. Generate data
-python data_generator/generate.py
-
-# 4. Ingest to MinIO
-python ingestion/ingest.py
-
-# 5. Run dbt models
-cd dbt_project/insurance_dwh
-dbt run
-dbt test
-
-# 6. Open dashboards
-# Airflow:  http://localhost:8081 (admin/admin)
-# Superset: http://localhost:8088 (admin/admin)
-# MinIO:    http://localhost:9001 (minioadmin/minioadmin)
+# 3. For near real-time streaming (optional, two separate terminals)
+python ingestion/kafka_producer.py
+python ingestion/kafka_consumer.py
 ```
 
 ## Services
@@ -62,4 +51,3 @@ dbt test
 | Airflow | http://localhost:8081 | admin / admin |
 | Superset | http://localhost:8088 | admin / admin |
 | MinIO | http://localhost:9001 | minioadmin / minioadmin |
-| Spark | http://localhost:8080 | — |
