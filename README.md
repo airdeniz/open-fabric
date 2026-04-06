@@ -30,6 +30,36 @@ Open source equivalent of Microsoft Fabric, built for insurance data warehouse u
 | stg_insureds | staging | Insured person data |
 | fct_policy | mart | Policy fact table |
 
+## Testing
+
+The project includes two layers of testing:
+
+**Python Unit Tests (pytest)** — 20 tests covering data generation and ingestion logic:
+
+- `TestGeneratePolicy` — validates policy structure, ID format, product codes, statuses and date logic
+- `TestGeneratePolicyVersion` — validates version structure, premium values and policy ID matching
+- `TestGenerateInsured` — validates insured structure and TC number format
+- `TestGenerateAll` — validates bulk generation counts and unique ID constraints
+- `TestJsonToParquet` — validates Parquet conversion, column preservation and multi-record handling
+- `TestKafkaProducer` — validates Kafka event structure and JSON serialization
+- `TestDataValidation` — validates null checks and business rules (gross premium >= net premium)
+
+Run unit tests:
+```bash
+pytest tests/ -v
+```
+
+**dbt Tests** — 11 data quality tests on staging models:
+
+- `unique` and `not_null` on all primary keys
+- `accepted_values` on policy status field
+
+Run dbt tests:
+```bash
+cd dbt_project/insurance_dwh
+dbt test
+```
+
 ## Quick Start
 ```bash
 # 1. Clone the repo
@@ -39,7 +69,10 @@ cd open-fabric
 # 2. Start all services with one command
 .\start.bat
 
-# 3. For near real-time streaming (optional, two separate terminals)
+# 3. Run unit tests
+pytest tests/ -v
+
+# 4. For near real-time streaming (optional, two separate terminals)
 python ingestion/kafka_producer.py
 python ingestion/kafka_consumer.py
 ```
