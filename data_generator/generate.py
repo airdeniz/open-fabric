@@ -16,7 +16,7 @@ def generate_policy(policy_id):
     return {
         "policy_id": f"POL-{policy_id:06d}",
         "policy_number": fake.bothify(text="??-######"),
-        "product_code": random.choice(["KASKO", "TRAFIK", "DASK", "SAGLIK"]),
+        "product_code": random.choice(["CASCO", "TRAFFIC", "EARTHQUAKE", "HEALTH"]),
         "status": random.choice(["ACTIVE", "CANCELLED", "EXPIRED"]),
         "start_date": start_date.strftime("%Y-%m-%d"),
         "end_date": end_date.strftime("%Y-%m-%d"),

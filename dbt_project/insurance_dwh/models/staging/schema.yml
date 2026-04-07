@@ -2,10 +2,10 @@ version: 2
 
 models:
   - name: stg_policies
-    description: "Ham poliçe verisi"
+    description: "Raw policy data"
     columns:
       - name: policy_id
-        description: "Poliçe ID"
+        description: "Policy ID"
         tests:
           - unique
           - not_null
@@ -19,7 +19,7 @@ models:
               values: ["ACTIVE", "CANCELLED", "EXPIRED"]
 
   - name: stg_policy_versions
-    description: "Poliçe versiyon verisi"
+    description: "Policy version and premium data"
     columns:
       - name: version_id
         tests:
@@ -30,7 +30,7 @@ models:
           - not_null
 
   - name: stg_insureds
-    description: "Sigortalı verisi"
+    description: "Insured person data"
     columns:
       - name: insured_id
         tests:
